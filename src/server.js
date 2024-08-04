@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
-const sequelize = require('./src/config/database'); // Make sure paths match your project structure
-const routes = require('./src/routes'); // Use your index.js to manage all routes
+const sequelize = require('./config/database');
+const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
@@ -20,9 +20,11 @@ app.get('/', (req, res) => {
 // Test database connection and start the server
 sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+    sequelize.sync().then(() =>{
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
 }).catch(err => {
     console.error('Unable to connect to the database:', err);
 });
