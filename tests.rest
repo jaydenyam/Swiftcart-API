@@ -1,0 +1,31 @@
+# Test for creating a product
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "name": "Sample Product",
+    "price": 29.99,
+    "stock": 100
+}
+
+###
+
+# Test for listing all products
+GET http://localhost:3000/products
+
+###
+
+# Test for adding an item to the cart
+POST http://localhost:3000/cart
+Content-Type: application/json
+
+{
+    "customerId": 1,
+    "productId": 101,
+    "quantity": 2
+}
+
+###
+
+# Test for viewing a customer's cart
+GET http://localhost:3000/cart/1
